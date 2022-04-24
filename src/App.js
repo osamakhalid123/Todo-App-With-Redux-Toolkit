@@ -19,6 +19,7 @@ function App() {
           id={todo.id}
           key={todo.id}
           item={todo.name}
+          complete={todo.completed}
         />
       ))}
     </div>

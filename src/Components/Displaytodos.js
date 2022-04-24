@@ -4,10 +4,11 @@ import { useState } from "react";
 import styled from "styled-components";
 import EditIcon from "@mui/icons-material/Edit";
 import ClearIcon from "@mui/icons-material/Clear";
-
-function Displaytodos({ item, dispatch, id }) {
+import CheckIcon from "@mui/icons-material/Check";
+function Displaytodos({ item, dispatch, id, complete }) {
   const [update, setupdate] = useState("");
   const [showEdit, setShowEdit] = useState(true);
+  const [Completed, setCompleted] = useState(complete);
 
   const Handleupdate = (e) => {
     e.preventDefault();
@@ -15,7 +16,7 @@ function Displaytodos({ item, dispatch, id }) {
   };
 
   return (
-    <Container>
+    <Container style={{ opacity: Completed ? "0.5" : "1" }}>
       <div>
         {showEdit ? (
           <Task> {item} </Task>
@@ -39,21 +40,13 @@ function Displaytodos({ item, dispatch, id }) {
           edit
         </Edit>
         <Close onClick={() => dispatch(deletetodo(id))}> delet </Close>
+
+        <Cheack onClick={() => setCompleted(!Completed)}> </Cheack>
       </div>
     </Container>
   );
 }
 
-const Edit = styled(EditIcon)`
-  cursor: pointer;
-  transform: scale(1.6);
-  margin-right: 2rem;
-`;
-const Close = styled(ClearIcon)`
-  cursor: pointer;
-  color: red;
-  transform: scale(1.6);
-`;
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -64,6 +57,31 @@ const Container = styled.div`
   width: 60vw;
   height: 3.4rem;
   border-radius: 30px;
+  /* popup:{ opacity:  setCompleted ? "1" : "0.5"} */
+
+  /* const styles = {
+    popup:{
+      display: open ? "flex" : "none",
+      opacity: open ? "1" : "0",
+    } */
+`;
+
+const Cheack = styled(CheckIcon)`
+  color: green;
+  transform: scale(1.6);
+  cursor: pointer;
+`;
+
+const Edit = styled(EditIcon)`
+  cursor: pointer;
+  transform: scale(1.6);
+  margin-right: 2rem;
+`;
+const Close = styled(ClearIcon)`
+  cursor: pointer;
+  color: red;
+  transform: scale(1.6);
+  margin-right: 2rem;
 `;
 
 const Task = styled.p`
